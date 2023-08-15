@@ -1,0 +1,41 @@
+// Online C compiler to run C program online
+#include <stdio.h>
+#include <pthread.h>
+void *computation(void *add);
+void *computation1(void *add);
+int main() {
+    pthread_t thread1;
+    pthread_t thread2;
+
+    long cal1=1;
+    long cal2=-100000;
+    
+    computation((void*)&cal1);
+    computation1((void*)&cal1);
+    /*
+    pthread_create(&thread1,NULL,computation,(void*)&cal1);
+    pthread_create(&thread2,NULL,computation1,(void*)&cal1);
+    
+    pthread_join(thread1,NULL);
+    pthread_join(thread2,NULL);
+    */
+    return 0;
+}
+void *computation(void *add){
+    long sum=0;
+    long *add_num=(long*)(add);
+    
+    for(long i=0;i<10;i++){
+        sum+=*add_num;
+        printf("Thread1: %ld\n",sum);
+    }
+}
+void *computation1(void *add){
+    long mul=1;
+    long *add_num=(long*)(add);
+    
+    for(long i=1;i<15;i++){
+        mul=mul*i;
+        printf("Thread2: %ld\n",mul);
+    }
+}
